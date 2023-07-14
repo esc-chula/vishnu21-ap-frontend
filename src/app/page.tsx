@@ -1,8 +1,10 @@
 'use client';
-
-import { useLiff } from '../contexts/LiffContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useLiff } from '@/contexts/LiffContext';
 
 export default function Home() {
     const liff = useLiff();
-    return <div>liff</div>;
+    const { user } = useAuth();
+
+    return <div>{user?.studentId}</div>;
 }
