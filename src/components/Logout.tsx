@@ -7,7 +7,7 @@ export default function Logout(): JSX.Element {
         <div className="flex justify-center py-8">
             <button
                 onClick={logoutHandler}
-                className="border-primary-500 border-2 rounded-lg px-4 py-2 text-primary-500 font-medium"
+                className="border-neutral-300 border-2 rounded-lg px-4 py-2 text-neutral-400 font-medium"
             >
                 ออกจากระบบ
             </button>

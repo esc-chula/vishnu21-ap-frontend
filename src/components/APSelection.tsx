@@ -72,7 +72,8 @@ export default function APSelection(): JSX.Element {
         ],
     };
 
-    const [selectedAP, setSelectedAP] = useState<string[]>([]);
+    const selectedData = ['COOR', 'PLACE', 'PLAN', 'ACT'];
+    const [selectedAP, setSelectedAP] = useState<string[]>(selectedData);
 
     return (
         <div className="w-full rounded-xl shadow-md bg-white px-6 py-4 space-y-2">
@@ -105,14 +106,31 @@ export default function APSelection(): JSX.Element {
                                 ) : (
                                     <FiSquare className="text-2xl text-neutral-300" />
                                 )}
-                                <p className="font-medium text-neutral-500">
+                                <p
+                                    className={`font-medium ${
+                                        selectedAP.includes(ap.shortName)
+                                            ? 'text-neutral-900'
+                                            : 'text-neutral-500'
+                                    }`}
+                                >
                                     {ap.name}
                                 </p>
+                                <div className="text-xs font-medium text-neutral-400 bg-neutral-100 rounded-lg px-2 py-1">
+                                    {ap.shortName}
+                                </div>
                             </button>
                         )
                     )}
                 </div>
             ))}
+            {JSON.stringify(selectedAP) !== JSON.stringify(selectedData) && (
+                <div className="flex flex-col items-center justify-center space-y-3 pt-6 pb-4">
+                    <p className="text-xs text-neutral-500">อย่าลืมกดบันทึก</p>
+                    <button className="bg-primary-500 rounded-lg px-6 py-2 text-white font-medium">
+                        บันทึก
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
