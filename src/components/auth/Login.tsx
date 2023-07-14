@@ -10,6 +10,8 @@ export default function Login({
 }): JSX.Element {
     const [studentId, setStudentId] = useState<string>('');
 
+    const isStudentIdValid = /^653\d{5}21$/.test(studentId);
+
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6">
             <div className="relative w-28 h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg">
@@ -33,7 +35,7 @@ export default function Login({
             <button
                 onClick={() => loginHandler(studentId)}
                 className={`bg-neutral-800 text-white rounded-lg p-4 text-lg shadow-md duration-300 ${
-                    studentId.length === 10
+                    isStudentIdValid
                         ? 'opacity-100 pointer-events-auto'
                         : 'pointer-events-none opacity-0'
                 }`}
