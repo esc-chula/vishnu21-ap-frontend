@@ -13,7 +13,7 @@ export default function Login({
     const isStudentIdValid = /^653\d{5}21$/.test(studentId);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6">
+        <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6 bg-white">
             <div className="relative w-28 h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg">
                 <Image src={NongpoonImage} alt="" fill />
             </div>

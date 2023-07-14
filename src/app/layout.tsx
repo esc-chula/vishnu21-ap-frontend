@@ -19,11 +19,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body className={ibmPlexSansThai.className}>
+        <html lang="th">
+            <body
+                className={`${ibmPlexSansThai.className} flex justify-center bg-gray-50`}
+            >
                 <LiffProvider>
                     <AuthProvider>
-                        <>{children}</>
+                        <div className="max-w-screen-sm w-full p-4">
+                            {children}
+                        </div>
                     </AuthProvider>
                 </LiffProvider>
             </body>

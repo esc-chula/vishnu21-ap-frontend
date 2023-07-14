@@ -1,15 +1,17 @@
 'use client';
 import Loading from '@/app/loading';
-import Login from '@/components/auth/Login';
+import Login from '@/components/Login';
 import { IUser } from '@/interfaces/user';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 interface AuthContextProps {
-    user?: IUser | null;
+    user: IUser | null;
+    logoutHandler: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
     user: null,
+    logoutHandler: () => {},
 });
 
 export default function AuthProvider({
@@ -25,6 +27,14 @@ export default function AuthProvider({
         setUser({
             studentId,
         });
+    };
+
+    const logoutHandler = () => {
+        // reset user selected ap in db
+
+        // remove local storage
+        localStorage.removeItem('studentId');
+        setUser(null);
     };
 
     useEffect(() => {
@@ -47,7 +57,9 @@ export default function AuthProvider({
     }
 
     return (
-        <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user, logoutHandler }}>
+            {children}
+        </AuthContext.Provider>
     );
 }
 

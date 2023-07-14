@@ -37,7 +37,7 @@ export default function LiffProvider({
 
     if (liffError) {
         return (
-            <div className="grid place-content-center h-screen w-full text-center">
+            <div className="grid place-content-center h-screen w-full text-center bg-white">
                 <p className="text-4xl font-bold text-neutral-900">
                     เอ้อะ?! อย่าบอกนะ..
                 </p>
