@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useLiff } from "../contexts/LiffContext";
+import { useLiff } from '../contexts/LiffContext';
 
 export default function Home() {
     const liff = useLiff();

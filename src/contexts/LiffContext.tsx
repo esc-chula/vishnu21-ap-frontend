@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Liff } from "@line/liff/exports";
-import { createContext, useContext, useEffect, useState } from "react";
+import { Liff } from '@line/liff/exports';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 interface LiffContextProps {
     liff: Liff | null;
@@ -20,17 +20,17 @@ export default function LiffProvider({
     const [liffError, setLiffError] = useState<string | null>(null);
 
     useEffect(() => {
-        import("@line/liff")
+        import('@line/liff')
             .then((liff) => liff.default)
             .then((liff) => {
-                console.log("LIFF init...");
+                console.log('LIFF init...');
                 liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID! })
                     .then(() => {
-                        console.log("LIFF init succeeded.");
+                        console.log('LIFF init succeeded.');
                         setLiffObject(liff);
                     })
                     .catch((error: Error) => {
-                        console.log("LIFF init failed.");
+                        console.log('LIFF init failed.');
                         setLiffError(error.toString());
                     });
             });
@@ -50,7 +50,7 @@ export default function LiffProvider({
 export const useLiff = () => {
     const context = useContext(LiffContext);
     if (context === undefined) {
-        throw new Error("useLiff must be used within a LiffProvider");
+        throw new Error('useLiff must be used within a LiffProvider');
     }
     return context.liff;
 };
