@@ -1,8 +1,10 @@
 'use client';
+import axios from 'axios';
 import Loading from '@/app/loading';
 import Login from '@/components/Login';
 import { IUser } from '@/interfaces/user';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useLiff } from './LiffContext';
 
 interface AuthContextProps {
     user: IUser | null;
@@ -19,11 +21,23 @@ export default function AuthProvider({
 }: {
     children: React.ReactNode;
 }) {
+    const liff = useLiff();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [user, setUser] = useState<IUser | null>(null);
 
-    const loginHandler = (studentId: string) => {
+    const loginHandler = async (studentId: string) => {
         localStorage.setItem('studentId', studentId);
+
+        if (liff?.isInClient()) {
+            const lineUserData = await liff?.getProfile();
+
+            await axios.post(process.env.NEXT_PUBLIC_API_URL + '/user', {
+                studentId,
+                displayName: lineUserData?.displayName,
+                userId: lineUserData?.userId,
+            });
+        }
+
         setUser({
             studentId,
         });
