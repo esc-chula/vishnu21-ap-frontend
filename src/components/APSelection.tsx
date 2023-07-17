@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { FiCheckSquare, FiSquare } from 'react-icons/fi';
 
 export default function APSelection(): JSX.Element {
@@ -72,8 +74,22 @@ export default function APSelection(): JSX.Element {
         ],
     };
 
-    const selectedData = ['COOR', 'PLACE', 'PLAN', 'ACT'];
+    const { user, fetchUser } = useAuth();
+
+    const selectedData = user?.selectedDepartments ?? [];
     const [selectedAP, setSelectedAP] = useState<string[]>(selectedData);
+
+    const saveHandler = async () => {
+        await axios
+            .patch(
+                process.env.NEXT_PUBLIC_API_URL + '/user/' + user?.studentId,
+                {
+                    selectedDepartments: selectedAP,
+                }
+            )
+            .then(() => fetchUser())
+            .catch(() => fetchUser());
+    };
 
     return (
         <div className="w-full rounded-xl shadow-md bg-white px-6 py-4 space-y-2">
@@ -126,7 +142,10 @@ export default function APSelection(): JSX.Element {
             {JSON.stringify(selectedAP) !== JSON.stringify(selectedData) && (
                 <div className="flex flex-col items-center justify-center space-y-3 pt-6 pb-4">
                     <p className="text-xs text-neutral-500">อย่าลืมกดบันทึก</p>
-                    <button className="bg-primary-500 rounded-lg px-6 py-2 text-white font-medium">
+                    <button
+                        onClick={saveHandler}
+                        className="bg-primary-500 rounded-lg px-6 py-2 text-white font-medium"
+                    >
                         บันทึก
                     </button>
                 </div>

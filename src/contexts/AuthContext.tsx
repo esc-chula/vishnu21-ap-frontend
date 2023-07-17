@@ -9,11 +9,13 @@ import { useLiff } from './LiffContext';
 interface AuthContextProps {
     user: IUser | null;
     logoutHandler: () => void;
+    fetchUser: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
     user: null,
     logoutHandler: () => {},
+    fetchUser: async () => {},
 });
 
 export default function AuthProvider({
@@ -26,21 +28,35 @@ export default function AuthProvider({
     const [user, setUser] = useState<IUser | null>(null);
 
     const loginHandler = async (studentId: string) => {
-        localStorage.setItem('studentId', studentId);
-
         if (liff?.isInClient()) {
             const lineUserData = await liff?.getProfile();
 
-            await axios.post(process.env.NEXT_PUBLIC_API_URL + '/user', {
-                studentId,
-                displayName: lineUserData?.displayName,
-                userId: lineUserData?.userId,
-            });
+            const userData = await axios
+                .post(process.env.NEXT_PUBLIC_API_URL + '/user/', {
+                    studentId,
+                    displayName: lineUserData?.displayName,
+                    userId: lineUserData?.userId,
+                })
+                .then((res) => res.data.data)
+                .catch(() => null);
+
+            localStorage.setItem('studentId', studentId);
+            setUser(userData);
+            return;
         }
 
-        setUser({
-            studentId,
-        });
+        const userData = await axios
+            .get(process.env.NEXT_PUBLIC_API_URL + '/user/' + studentId)
+            .then((res) => res.data.data)
+            .catch(() => null);
+
+        if (userData) {
+            localStorage.setItem('studentId', studentId);
+            setUser(userData);
+            return;
+        }
+
+        console.log('not in client');
     };
 
     const logoutHandler = () => {
@@ -51,15 +67,24 @@ export default function AuthProvider({
         setUser(null);
     };
 
-    useEffect(() => {
+    const fetchUser = async () => {
+        setIsLoading(true);
         const studentId = localStorage.getItem('studentId');
+
+        const userData = await axios
+            .get(process.env.NEXT_PUBLIC_API_URL + '/user/' + studentId)
+            .then((res) => res.data.data)
+            .catch(() => null);
+
         if (studentId) {
-            setUser({
-                studentId,
-            });
+            setUser(userData);
             setIsLoading(false);
         }
         setIsLoading(false);
+    };
+
+    useEffect(() => {
+        fetchUser();
     }, []);
 
     if (isLoading) {
@@ -71,7 +96,7 @@ export default function AuthProvider({
     }
 
     return (
-        <AuthContext.Provider value={{ user, logoutHandler }}>
+        <AuthContext.Provider value={{ user, logoutHandler, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

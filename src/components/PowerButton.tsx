@@ -1,7 +1,23 @@
-import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function PowerButton(): JSX.Element {
-    const [isAnnounce, setIsAnnounce] = useState<boolean>(false);
+    const { user, fetchUser } = useAuth();
+
+    const [isAnnounce, setIsAnnounce] = useState<boolean>(user?.enableBot!);
+
+    const toggleHandler = async () => {
+        await axios
+            .patch(
+                process.env.NEXT_PUBLIC_API_URL + '/user/' + user?.studentId,
+                {
+                    enableBot: !isAnnounce,
+                }
+            )
+            .then(() => setIsAnnounce(!isAnnounce))
+            .catch(() => fetchUser());
+    };
 
     return (
         <div className="flex items-center justify-between w-full rounded-xl shadow-md bg-white px-4 py-6">
@@ -14,11 +30,11 @@ export default function PowerButton(): JSX.Element {
                 </p>
             </div>
             <button
-                onClick={() => setIsAnnounce(!isAnnounce)}
+                onClick={toggleHandler}
                 className={`flex p-1 w-16 h-[34px] rounded-full duration-200 ${
                     isAnnounce
-                        ? 'pl-1 bg-neutral-300'
-                        : 'pl-[34px] bg-primary-500'
+                        ? 'pl-[34px] bg-primary-500'
+                        : 'pl-1 bg-neutral-300'
                 }`}
             >
                 <div className="h-full aspect-square rounded-full bg-white duration-300"></div>
