@@ -9,7 +9,7 @@ const Edit: React.FC = () => {
     };
 
     return (
-        <div className="w-full rounded-xl px-6 py-4">
+        <div className="w-full rounded-xl px-6 py-4 select-none">
             <div className="flex justify-between">
                 <div className="space-x-1">
                     <span className="font-bold text-primary-500 text-6xl">
