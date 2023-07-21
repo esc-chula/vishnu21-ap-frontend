@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { BarLoader } from 'react-spinners';
 
-const Edit: React.FC = () => {
+interface EditProps {
+    slot?: number;
+    onFinished?: () => void;
+}
+
+const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished }) => {
     const [offset, setOffset] = useState<number>(0);
     const [slot, setSlot] = useState<number>(0);
     const [activeSlot, setActiveSlot] = useState<ISlot | null>(null);
@@ -30,17 +35,19 @@ const Edit: React.FC = () => {
         setIsLoading(true);
         await axios
             .patch(process.env.NEXT_PUBLIC_API_URL + '/ap/offset', {
-                slot,
+                slot: inputSlot || slot,
                 offset,
             })
             .then(() => {
                 setOffset(0);
                 setIsLoading(false);
+                onFinished && onFinished();
             })
             .catch((error) => {
                 console.error(error);
                 setOffset(0);
                 setIsLoading(false);
+                onFinished && onFinished();
             });
     };
 
@@ -76,28 +83,31 @@ const Edit: React.FC = () => {
                         </span>
                         <span className="font-bold text-neutral-400">นาที</span>
                     </div>
-                    <div className="space-x-2">
-                        <span className="font-bold text-neutral-400">
-                            ตั้งแต่ Slot ที่
-                        </span>
-                        <select
-                            value={slot || activeSlot?.slot}
-                            onChange={(e) => setSlot(+e.target.value)}
-                            className="bg-transparent border-2 border-neutral-300 rounded-lg px-4 py-1 text-neutral-700 font-bold"
-                        >
-                            <option value={activeSlot?.slot}>
-                                {activeSlot?.slot}
-                            </option>
-                            {activeSlot?.slot &&
-                                createArrayFromRange(activeSlot.slot, 200).map(
-                                    (slot) => (
+                    {!inputSlot && (
+                        <div className="space-x-2">
+                            <span className="font-bold text-neutral-400">
+                                ตั้งแต่ Slot ที่
+                            </span>
+                            <select
+                                value={slot || activeSlot?.slot}
+                                onChange={(e) => setSlot(+e.target.value)}
+                                className="bg-transparent border-2 border-neutral-300 rounded-lg px-4 py-1 text-neutral-700 font-bold"
+                            >
+                                <option value={activeSlot?.slot}>
+                                    {activeSlot?.slot}
+                                </option>
+                                {activeSlot?.slot &&
+                                    createArrayFromRange(
+                                        activeSlot.slot,
+                                        200
+                                    ).map((slot) => (
                                         <option key={slot} value={slot}>
                                             {slot}
                                         </option>
-                                    )
-                                )}
-                        </select>
-                    </div>
+                                    ))}
+                            </select>
+                        </div>
+                    )}
                 </div>
                 <div className="flex flex-col space-y-6 items-center">
                     <div className="flex items-center space-x-4">
