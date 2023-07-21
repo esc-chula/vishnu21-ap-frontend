@@ -47,7 +47,7 @@ export default function Upcoming() {
 
     return (
         <>
-            <div className="space-y-4 pb-28">
+            <div className="space-y-4 pb-28 min-h-screen">
                 {page === 'active'
                     ? activeSlots
                           ?.filter((slot) => {
@@ -198,7 +198,7 @@ export default function Upcoming() {
                 ></div>
             )}
 
-            <div className="z-20 fixed bottom-4 left-4 right-4 h-16 bg-white shadow-md rounded-2xl flex justify-between items-center font-bold text-gray-300 p-2.5 pr-4 space-x-4">
+            <div className="z-20 fixed bottom-6 left-4 right-4 h-16 bg-white shadow-md rounded-2xl flex justify-between items-center font-bold text-gray-300 p-2.5 pr-4 space-x-4">
                 <div className="flex w-full h-full">
                     <button
                         onClick={() => {
