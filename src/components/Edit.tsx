@@ -1,25 +1,107 @@
-import { useState } from 'react';
+import { ISlot } from '@/interfaces/ap';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
+import { BarLoader } from 'react-spinners';
 
 const Edit: React.FC = () => {
     const [offset, setOffset] = useState<number>(0);
+    const [slot, setSlot] = useState<number>(0);
+    const [activeSlot, setActiveSlot] = useState<ISlot | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        const fetchActiveSlot = async () => {
+            await axios
+                .get(process.env.NEXT_PUBLIC_API_URL + '/ap/active')
+                .then((res) => {
+                    setActiveSlot(res.data.data[0]);
+                    setSlot(res.data.data[0].slot);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        };
+
+        fetchActiveSlot();
+    }, []);
 
     const announceHandler = async () => {
-        setOffset(0);
+        setIsLoading(true);
+        await axios
+            .patch(process.env.NEXT_PUBLIC_API_URL + '/ap/offset', {
+                slot,
+                offset,
+            })
+            .then(() => {
+                setOffset(0);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error(error);
+                setOffset(0);
+                setIsLoading(false);
+            });
     };
 
+    const createArrayFromRange = (start: number, end: number) => {
+        const result = [];
+        for (let i = start; i <= end; i++) {
+            result.push(i);
+        }
+        return result;
+    };
+
+    if (isLoading)
+        return (
+            <div className="flex flex-col justify-center items-center w-full rounded-xl px-6 py-4 select-none h-36 space-y-4">
+                <BarLoader color="#8B5CF6" />
+                <p className="font-bold text-neutral-400 text-xs">
+                    รอแปปนะฮะ...
+                </p>
+            </div>
+        );
+
     return (
-        <div className="w-full rounded-xl px-6 py-4 select-none">
+        <div className="w-full rounded-xl px-6 py-4 select-none h-36">
             <div className="flex justify-between">
-                <div className="space-x-1">
-                    <span className="font-bold text-primary-500 text-6xl">
-                        {offset === 0 ? 0 : offset > 0 ? `+${offset}` : offset}
-                    </span>
-                    <span className="font-bold text-neutral-400">นาที</span>
+                <div className="space-y-3">
+                    <div className="space-x-1">
+                        <span className="font-bold text-primary-500 text-6xl">
+                            {offset === 0
+                                ? 0
+                                : offset > 0
+                                ? `+${offset}`
+                                : offset}
+                        </span>
+                        <span className="font-bold text-neutral-400">นาที</span>
+                    </div>
+                    <div className="space-x-2">
+                        <span className="font-bold text-neutral-400">
+                            ตั้งแต่ Slot ที่
+                        </span>
+                        <select
+                            value={slot || activeSlot?.slot}
+                            onChange={(e) => setSlot(+e.target.value)}
+                            className="bg-transparent border-2 border-neutral-300 rounded-lg px-4 py-1 text-neutral-700 font-bold"
+                        >
+                            <option value={activeSlot?.slot}>
+                                {activeSlot?.slot}
+                            </option>
+                            {activeSlot?.slot &&
+                                createArrayFromRange(activeSlot.slot, 200).map(
+                                    (slot) => (
+                                        <option key={slot} value={slot}>
+                                            {slot}
+                                        </option>
+                                    )
+                                )}
+                        </select>
+                    </div>
                 </div>
                 <div className="flex flex-col space-y-6 items-center">
                     <div className="flex items-center space-x-4">
-                        <button
+                        <div
                             onClick={() => setOffset((prev) => prev + 1)}
                             onPointerDown={() => {
                                 const timeout = setTimeout(() => {
@@ -41,8 +123,8 @@ const Edit: React.FC = () => {
                             className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiPlus />
-                        </button>
-                        <button
+                        </div>
+                        <div
                             onClick={() => setOffset((prev) => prev - 1)}
                             onPointerDown={() => {
                                 const timeout = setTimeout(() => {
@@ -64,7 +146,7 @@ const Edit: React.FC = () => {
                             className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiMinus />
-                        </button>
+                        </div>
                     </div>
                     {offset !== 0 && (
                         <button
