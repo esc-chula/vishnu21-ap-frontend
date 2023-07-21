@@ -7,4 +7,5 @@ export interface IUser {
     userId: string;
     enableBot: boolean;
     selectedDepartments: TDepartment[];
+    superuser?: boolean;
 }
