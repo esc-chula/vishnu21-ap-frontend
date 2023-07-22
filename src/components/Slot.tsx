@@ -1,4 +1,4 @@
-import { useSlots } from '@/app/upcoming/page';
+import { useSlots } from '@/app/slots/page';
 import { useAuth } from '@/contexts/AuthContext';
 import { ISlot } from '@/interfaces/ap';
 import moment from 'moment';
