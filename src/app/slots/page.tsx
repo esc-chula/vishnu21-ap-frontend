@@ -2,26 +2,12 @@
 
 import { ISlot } from '@/interfaces/ap';
 import axios from 'axios';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { PiFunnelFill, PiPencilSimpleFill } from 'react-icons/pi';
+import { useEffect, useState } from 'react';
+import { PiFunnelFill } from 'react-icons/pi';
 import moment from 'moment';
 import { useAuth } from '@/contexts/AuthContext';
 import Edit from '@/components/Edit';
 import Slot from '@/components/Slot';
-
-interface SlotsContextProps {
-    page: 'active' | 'upcoming' | 'all';
-    setSelectedEditSlot: React.Dispatch<React.SetStateAction<number | null>>;
-}
-
-const SlotsContext = createContext<SlotsContextProps>({
-    page: 'active',
-    setSelectedEditSlot: () => {},
-});
-
-export const useSlots = () => {
-    return useContext(SlotsContext);
-};
 
 export default function Upcoming() {
     const { user } = useAuth();
@@ -47,7 +33,7 @@ export default function Upcoming() {
         setPage((localStorage.getItem('page') as 'active' | 'all') || 'active');
     }, []);
 
-    const announcedSlots = slots?.filter((slot) => slot.announced);
+    // const announcedSlots = slots?.filter((slot) => slot.announced);
     const activeSlots = slots?.filter((slot) => {
         const currentTime = moment();
         const startTime = moment(
@@ -72,7 +58,7 @@ export default function Upcoming() {
     });
 
     return (
-        <SlotsContext.Provider value={{ page, setSelectedEditSlot }}>
+        <>
             <div className="space-y-4 pb-28 min-h-screen">
                 {page === 'active'
                     ? activeSlots
@@ -85,7 +71,12 @@ export default function Upcoming() {
                               return true;
                           })
                           .map((slot, index) => (
-                              <Slot key={index} slot={slot} />
+                              <Slot
+                                  key={index}
+                                  slot={slot}
+                                  page={page}
+                                  setSelectedEditSlot={setSelectedEditSlot}
+                              />
                           ))
                     : page === 'upcoming'
                     ? upcomingSlots
@@ -98,7 +89,12 @@ export default function Upcoming() {
                               return true;
                           })
                           .map((slot, index) => (
-                              <Slot key={index} slot={slot} />
+                              <Slot
+                                  key={index}
+                                  slot={slot}
+                                  page={page}
+                                  setSelectedEditSlot={setSelectedEditSlot}
+                              />
                           ))
                     : slots
                           ?.filter((slot) => {
@@ -110,7 +106,12 @@ export default function Upcoming() {
                               return true;
                           })
                           .map((slot, index) => (
-                              <Slot key={index} slot={slot} />
+                              <Slot
+                                  key={index}
+                                  slot={slot}
+                                  page={page}
+                                  setSelectedEditSlot={setSelectedEditSlot}
+                              />
                           ))}
             </div>
 
@@ -185,6 +186,6 @@ export default function Upcoming() {
                 </button>
             </div>
             <div className="z-10 fixed bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-neutral-50 to-transparent pointer-events-none"></div>
-        </SlotsContext.Provider>
+        </>
     );
 }

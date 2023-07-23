@@ -1,4 +1,3 @@
-import { useSlots } from '@/app/slots/page';
 import { useAuth } from '@/contexts/AuthContext';
 import { ISlot } from '@/interfaces/ap';
 import moment from 'moment';
@@ -6,11 +5,12 @@ import { PiPencilSimpleFill } from 'react-icons/pi';
 
 interface SlotProps {
     slot: ISlot;
+    page: 'active' | 'upcoming' | 'all';
+    setSelectedEditSlot: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const Slot: React.FC<SlotProps> = ({ slot }) => {
+const Slot: React.FC<SlotProps> = ({ slot, page, setSelectedEditSlot }) => {
     const { user } = useAuth();
-    const { page, setSelectedEditSlot } = useSlots();
 
     const start = moment(slot.start).format('HH:mm');
     const end = moment(slot.end).format('HH:mm');
