@@ -1,15 +1,22 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { ISlot } from '@/interfaces/ap';
 import moment from 'moment';
+import { useState } from 'react';
 import { PiPencilSimpleFill } from 'react-icons/pi';
 
 interface SlotProps {
     slot: ISlot;
     page: 'active' | 'upcoming' | 'all';
     setSelectedEditSlot: React.Dispatch<React.SetStateAction<number | null>>;
+    showDetails: boolean;
 }
 
-const Slot: React.FC<SlotProps> = ({ slot, page, setSelectedEditSlot }) => {
+const Slot: React.FC<SlotProps> = ({
+    slot,
+    page,
+    setSelectedEditSlot,
+    showDetails,
+}) => {
     const { user } = useAuth();
 
     const start = moment(slot.start).format('HH:mm');
@@ -71,6 +78,16 @@ const Slot: React.FC<SlotProps> = ({ slot, page, setSelectedEditSlot }) => {
                     {slot.contact}
                 </a>
             </p>
+            {showDetails && (
+                <div className="space-y-2 pt-1">
+                    <p className="text-sm font-medium text-neutral-500">
+                        สถานที่: {slot.location}
+                    </p>
+                    <p className="text-sm font-medium text-neutral-500">
+                        หมายเหตุ: {slot.note}
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

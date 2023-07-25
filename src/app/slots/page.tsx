@@ -3,7 +3,7 @@
 import { ISlot } from '@/interfaces/ap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { PiFunnelFill } from 'react-icons/pi';
+import { PiFunnelFill, PiInfoFill } from 'react-icons/pi';
 import moment from 'moment';
 import { useAuth } from '@/contexts/AuthContext';
 import Edit from '@/components/Edit';
@@ -14,6 +14,7 @@ export default function Upcoming() {
 
     const [page, setPage] = useState<'active' | 'upcoming' | 'all'>('active');
     const [isFilter, setIsFilter] = useState<boolean>(false);
+    const [showDetails, setShowDetails] = useState<boolean>(false);
     const [slots, setSlots] = useState<ISlot[] | null>(null);
     const [selectedEditSlot, setSelectedEditSlot] = useState<number | null>(
         null
@@ -31,7 +32,21 @@ export default function Upcoming() {
     useEffect(() => {
         fetchSlots();
         setPage((localStorage.getItem('page') as 'active' | 'all') || 'active');
+        setShowDetails(
+            (localStorage.getItem('showDetails') as 'true' | 'false') === 'true'
+        );
+        setIsFilter(
+            (localStorage.getItem('isFilter') as 'true' | 'false') === 'true'
+        );
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem('showDetails', showDetails.toString());
+    }, [showDetails]);
+
+    useEffect(() => {
+        localStorage.setItem('isFilter', isFilter.toString());
+    }, [isFilter]);
 
     // const announcedSlots = slots?.filter((slot) => slot.announced);
     const activeSlots = slots?.filter((slot) => {
@@ -76,6 +91,7 @@ export default function Upcoming() {
                                   slot={slot}
                                   page={page}
                                   setSelectedEditSlot={setSelectedEditSlot}
+                                  showDetails={showDetails}
                               />
                           ))
                     : page === 'upcoming'
@@ -94,6 +110,7 @@ export default function Upcoming() {
                                   slot={slot}
                                   page={page}
                                   setSelectedEditSlot={setSelectedEditSlot}
+                                  showDetails={showDetails}
                               />
                           ))
                     : slots
@@ -111,6 +128,7 @@ export default function Upcoming() {
                                   slot={slot}
                                   page={page}
                                   setSelectedEditSlot={setSelectedEditSlot}
+                                  showDetails={showDetails}
                               />
                           ))}
             </div>
@@ -134,7 +152,7 @@ export default function Upcoming() {
                 ></div>
             )}
 
-            <div className="z-20 fixed bottom-6 left-4 right-4 h-16 bg-white shadow-md rounded-2xl flex justify-between items-center font-bold text-gray-300 p-2.5 pr-4 space-x-4">
+            <div className="z-20 fixed bottom-6 left-4 right-4 h-16 bg-white shadow-md rounded-2xl flex justify-between items-center font-bold text-gray-300 p-2.5 pr-4 space-x-2">
                 <div className="flex w-full h-full">
                     <button
                         onClick={() => {
@@ -176,14 +194,24 @@ export default function Upcoming() {
                         ทั้งหมด
                     </button>
                 </div>
-                <button
-                    onClick={() => setIsFilter(!isFilter)}
-                    className={`h-full aspect-square grid place-content-center text-xl rounded-lg ${
-                        isFilter && 'bg-primary-500 text-white'
-                    }`}
-                >
-                    <PiFunnelFill />
-                </button>
+                <div className="flex h-full space-x-1">
+                    <button
+                        onClick={() => setShowDetails(!showDetails)}
+                        className={`h-full aspect-square grid place-content-center text-2xl rounded-lg ${
+                            showDetails && 'bg-primary-500 text-white'
+                        }`}
+                    >
+                        <PiInfoFill />
+                    </button>
+                    <button
+                        onClick={() => setIsFilter(!isFilter)}
+                        className={`h-full aspect-square grid place-content-center text-2xl rounded-lg ${
+                            isFilter && 'bg-primary-500 text-white'
+                        }`}
+                    >
+                        <PiFunnelFill />
+                    </button>
+                </div>
             </div>
             <div className="z-10 fixed bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-neutral-50 to-transparent pointer-events-none"></div>
         </>
