@@ -1,4 +1,5 @@
 import { ISlot } from '@/interfaces/ap';
+import { IUser } from '@/interfaces/user';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -7,9 +8,10 @@ import { BarLoader } from 'react-spinners';
 interface EditProps {
     slot?: number;
     onFinished?: () => void;
+    user: IUser | null;
 }
 
-const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished }) => {
+const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
     const [offset, setOffset] = useState<number>(0);
     const [slot, setSlot] = useState<number>(0);
     const [activeSlot, setActiveSlot] = useState<ISlot | null>(null);
@@ -33,22 +35,30 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished }) => {
 
     const announceHandler = async () => {
         setIsLoading(true);
-        await axios
-            .patch(process.env.NEXT_PUBLIC_API_URL + '/ap/offset', {
-                slot: inputSlot || slot,
-                offset,
-            })
-            .then(() => {
-                setOffset(0);
-                setIsLoading(false);
-                onFinished && onFinished();
-            })
-            .catch((error) => {
-                console.error(error);
-                setOffset(0);
-                setIsLoading(false);
-                onFinished && onFinished();
-            });
+        if (!user || !user.userId || !user.displayName) {
+            console.error('');
+            setOffset(0);
+            setIsLoading(false);
+            onFinished && onFinished();
+        } else
+            await axios
+                .patch(process.env.NEXT_PUBLIC_API_URL + '/ap/offset', {
+                    slot: inputSlot || slot,
+                    offset,
+                    userId: user.userId,
+                    displayName: user.displayName,
+                })
+                .then(() => {
+                    setOffset(0);
+                    setIsLoading(false);
+                    onFinished && onFinished();
+                })
+                .catch((error) => {
+                    console.error(error);
+                    setOffset(0);
+                    setIsLoading(false);
+                    onFinished && onFinished();
+                });
     };
 
     const createArrayFromRange = (start: number, end: number) => {

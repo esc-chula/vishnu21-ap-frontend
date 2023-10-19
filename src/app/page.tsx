@@ -14,7 +14,7 @@ export default function Home() {
         <div className="space-y-4">
             <PowerButton />
 
-            {user?.superuser && <Edit />}
+            {user?.superuser && <Edit user={user} />}
             <APSelection />
             {/* <Logout /> */}
         </div>

@@ -1,78 +1,11 @@
 import { useAuth } from '@/contexts/AuthContext';
+import { larngearCampDepartment } from '@/interfaces/orgChart';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiCheckSquare, FiSquare } from 'react-icons/fi';
 
 export default function APSelection(): JSX.Element {
-    const departments = {
-        ดำเนินการ: [
-            {
-                name: 'ฝ่ายประสาน',
-                shortName: 'COOR',
-            },
-            {
-                name: 'ฝ่ายแผน',
-                shortName: 'PLAN',
-            },
-        ],
-        กิจกรรม: [
-            {
-                name: 'ฝ่าย Activity',
-                shortName: 'ACT',
-            },
-            {
-                name: 'ฝ่าย Entertainment',
-                shortName: 'ENT',
-            },
-            {
-                name: 'ฝ่าย Content',
-                shortName: 'CONTENT',
-            },
-            {
-                name: 'ฝ่าย MC',
-                shortName: 'MC',
-            },
-        ],
-        'อำนวยการ 1': [
-            {
-                name: 'ฝ่ายสวัสดิการ',
-                shortName: 'WELFARE',
-            },
-            {
-                name: 'ฝ่ายพลัสดุ',
-                shortName: 'SUPPLY',
-            },
-            {
-                name: 'ฝ่ายสถานที่',
-                shortName: 'PLACE',
-            },
-            {
-                name: 'ฝ่ายพยาบาล',
-                shortName: 'MED',
-            },
-        ],
-        'อำนวยการ 2': [
-            {
-                name: 'ฝ่ายทะเบียน',
-                shortName: 'REG',
-            },
-            {
-                name: 'ฝ่าย PR',
-                shortName: 'PR',
-            },
-            {
-                name: 'ฝ่าย IT',
-                shortName: 'IT',
-            },
-        ],
-
-        การเงิน: [
-            {
-                name: 'ฝ่ายการเงิน',
-                shortName: 'FINANCE',
-            },
-        ],
-    };
+    const departments = larngearCampDepartment;
 
     const { user, fetchUser } = useAuth();
 

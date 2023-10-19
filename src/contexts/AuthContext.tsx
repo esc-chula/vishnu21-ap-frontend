@@ -26,7 +26,11 @@ export default function AuthProvider({
     const liff = useLiff();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [user, setUser] = useState<IUser | null>(null);
-
+    const config = {
+        headers: {
+            'ngrok-skip-browser-warning': '1',
+        },
+    };
     const loginHandler = async (studentId: string) => {
         if (liff?.isInClient()) {
             const lineUserData = await liff?.getProfile();
@@ -38,17 +42,22 @@ export default function AuthProvider({
                     userId: lineUserData?.userId,
                 })
                 .then((res) => res.data.data)
-                .catch(() => null);
+                .catch(() => console.log('create user failed'));
 
             localStorage.setItem('studentId', studentId);
             setUser(userData);
             return;
         }
+        console.log(process.env.NEXT_PUBLIC_API_URL + '/user/' + studentId);
 
         const userData = await axios
-            .get(process.env.NEXT_PUBLIC_API_URL + '/user/' + studentId)
-            .then((res) => res.data.data)
-            .catch(() => null);
+            .get(process.env.NEXT_PUBLIC_API_URL + '/user/' + studentId, config)
+            .then((res) => {
+                console.log(res);
+                return res.data.data;
+            })
+            .catch(() => console.log('get user failed'));
+        console.log(userData);
 
         if (userData) {
             localStorage.setItem('studentId', studentId);

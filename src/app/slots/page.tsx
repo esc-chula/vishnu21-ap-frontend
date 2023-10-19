@@ -20,10 +20,17 @@ export default function Upcoming() {
         null
     );
 
+    const config = {
+        headers: {
+            'ngrok-skip-browser-warning': '1',
+        },
+    };
     const fetchSlots = async () => {
         await axios
-            .get(process.env.NEXT_PUBLIC_API_URL + '/ap')
-            .then((res) => setSlots(res.data.data))
+            .get(process.env.NEXT_PUBLIC_API_URL + '/ap', config)
+            .then((res) => {
+                setSlots(res.data.data);
+            })
             .catch((error) => {
                 console.error(error);
             });
@@ -141,6 +148,7 @@ export default function Upcoming() {
                             fetchSlots();
                             setSelectedEditSlot(null);
                         }}
+                        user={user}
                     />
                 </div>
             )}
