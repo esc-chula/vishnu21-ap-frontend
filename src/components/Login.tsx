@@ -1,4 +1,4 @@
-import NongpoonImage from '@/public/nongpoon.png';
+import LG23APBotImage from '@/public/lg23-ap-bot.jpg';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
@@ -10,14 +10,14 @@ export default function Login({
 }): JSX.Element {
     const [studentId, setStudentId] = useState<string>('');
 
-    const isStudentIdValid = /^653\d{5}21$/.test(studentId);
+    const isStudentIdValid = /^6[4|5|6]3\d{5}21$/.test(studentId);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6 bg-white">
             <div className="relative w-28 h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg">
-                <Image src={NongpoonImage} alt="" fill />
+                <Image src={LG23APBotImage} alt="" fill />
             </div>
             <div className="space-y-1">
                 <h1 className="font-bold text-3xl text-neutral-800">
@@ -30,7 +30,7 @@ export default function Login({
             <input
                 type="text"
                 className="outline-none bg-transparent border-2 border-neutral-300 rounded-lg px-3 py-1.5"
-                placeholder="หกห้าสาม..."
+                placeholder="หก..."
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
             />

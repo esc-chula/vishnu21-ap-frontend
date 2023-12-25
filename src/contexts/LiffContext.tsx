@@ -42,7 +42,7 @@ export default function LiffProvider({
                     เอ้อะ?! อย่าบอกนะ..
                 </p>
                 <p className="text-xs text-neutral-500">
-                    ถ้าเจอหน้านี้ไปหาและบอกไอคนที่ชื่อว่าปูนว่าเว็บล่มด้วยนะ
+                    ถ้าเจอหน้านี้ไปหาและบอกไอคนที่ชื่อว่าลิตเติ้ลว่าเว็บล่มด้วยนะ
                 </p>
                 <p className="text-xs text-neutral-500">{liffError}</p>
             </div>

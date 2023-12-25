@@ -9,8 +9,8 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
 });
 
 export const metadata = {
-    title: 'น้องปูน',
-    description: 'วิดนุต้องรอด',
+    title: 'เลขาฝ่ายแผน',
+    description: 'ลานเกียร์ต้องรอด',
 };
 
 export default function RootLayout({

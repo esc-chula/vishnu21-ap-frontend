@@ -13,9 +13,8 @@ export default function Home() {
     return (
         <div className="space-y-4">
             <PowerButton />
-
-            {user?.superuser && <Edit user={user} />}
             <APSelection />
+            {user?.superuser && <Edit user={user} />}
             {/* <Logout /> */}
         </div>
     );
