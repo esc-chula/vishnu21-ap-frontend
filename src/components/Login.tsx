@@ -16,7 +16,7 @@ export default function Login({
 
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6 bg-white">
-            <div className="relative w-28 h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg">
+            <div className="relative h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg aspect-square">
                 <Image src={LG23APBotImage} alt="" fill />
             </div>
             <div className="space-y-1">

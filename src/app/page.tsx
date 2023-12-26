@@ -13,8 +13,8 @@ export default function Home() {
     return (
         <div className="space-y-4">
             <PowerButton />
-            <APSelection />
             {user?.superuser && <Edit user={user} />}
+            <APSelection />
             {/* <Logout /> */}
         </div>
     );

@@ -72,7 +72,7 @@ export const larngearCampDepartment = {
     ฝ่ายหลัก: [
         {
             name: 'ฝ่ายประสาน',
-            shortName: 'COOR',
+            shortName: 'COOP',
         },
         {
             name: 'ฝ่ายแผน',
