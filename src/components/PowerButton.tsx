@@ -26,7 +26,7 @@ export default function PowerButton(): JSX.Element {
                     เปิดใช้งานบอท
                 </h3>
                 <p className="text-xs text-neutral-500">
-                    เปิดให้น้องปูนแจ้ง AP เลย!
+                    เปิดให้เลขาฝ่ายแผนแจ้ง AP เลย!
                 </p>
             </div>
             <button
