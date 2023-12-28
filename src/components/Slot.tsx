@@ -89,8 +89,8 @@ const Slot: React.FC<SlotProps> = ({
                         </a>
                     </p>
                 </div>
-                <Link href={`tel:${contactMatches ? contactMatches[2] : ''}`}>
-                    <span className="text-lg rounded-lg text-neutral-300">
+                <span className="text-lg rounded-lg text-neutral-300">
+                    <a href={`tel:${contactMatches ? contactMatches[2] : ''}`}>
                         <FaSquarePhone
                             size={48}
                             className={`rounded-lg ${
@@ -101,8 +101,8 @@ const Slot: React.FC<SlotProps> = ({
                                     : 'text-primary-500'
                             }`}
                         />
-                    </span>
-                </Link>
+                    </a>
+                </span>
             </div>
             {showDetails && (
                 <div className="space-y-2 pt-1">
