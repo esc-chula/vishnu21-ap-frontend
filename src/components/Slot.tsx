@@ -3,6 +3,8 @@ import { ISlot } from '@/interfaces/ap';
 import moment from 'moment';
 import { useState } from 'react';
 import { PiPencilSimpleFill } from 'react-icons/pi';
+import { FaSquarePhone } from 'react-icons/fa6';
+import Link from 'next/link';
 
 interface SlotProps {
     slot: ISlot;
@@ -71,13 +73,37 @@ const Slot: React.FC<SlotProps> = ({
                     </span>
                 )}
             </h3>
-            <h3 className="font-bold text-neutral-700 text-lg">{slot.event}</h3>
-            <p className="text-sm text-neutral-500 font-bold">
-                {slot.department} |{' '}
-                <a href={`tel:${contactMatches ? contactMatches[2] : ''}`}>
-                    {slot.contact}
-                </a>
-            </p>
+            <div className="flex flex-row space-x-4 justify-between items-center">
+                <div className="space-y-2">
+                    <h3 className="font-bold text-neutral-700 text-lg">
+                        {slot.event}
+                    </h3>
+                    <p className="text-sm text-neutral-500 font-bold">
+                        {slot.department} |{' '}
+                        <a
+                            href={`tel:${
+                                contactMatches ? contactMatches[2] : ''
+                            }`}
+                        >
+                            {slot.contact}
+                        </a>
+                    </p>
+                </div>
+                <Link href={`tel:${contactMatches ? contactMatches[2] : ''}`}>
+                    <span className="text-lg rounded-lg text-neutral-300">
+                        <FaSquarePhone
+                            size={48}
+                            className={`rounded-lg ${
+                                isActive
+                                    ? 'text-primary-500'
+                                    : isAnnounced
+                                    ? 'text-neutral-500'
+                                    : 'text-primary-500'
+                            }`}
+                        />
+                    </span>
+                </Link>
+            </div>
             {showDetails && (
                 <div className="space-y-2 pt-1">
                     <p className="text-sm font-medium text-neutral-500">
