@@ -120,9 +120,5 @@ export const larngearCampDepartment = {
             name: 'ฝ่ายสปอนเซอร์',
             shortName: 'SPONSOR',
         },
-        {
-            name: 'บอร์ดค่าย',
-            shortName: 'BOARD',
-        },
     ],
 };
