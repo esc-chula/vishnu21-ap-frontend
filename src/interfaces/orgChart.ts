@@ -82,6 +82,10 @@ export const larngearCampDepartment = {
             name: 'ฝ่ายกิจ',
             shortName: 'ACT',
         },
+        {
+            name: 'ฝ่ายกิจ MC',
+            shortName: 'MC',
+        },
     ],
     ฝ่ายย่อย: [
         {
