@@ -109,9 +109,11 @@ const Slot: React.FC<SlotProps> = ({
                     <p className="text-sm font-medium text-neutral-500">
                         สถานที่: {slot.location}
                     </p>
-                    <p className="text-sm font-medium text-neutral-500">
-                        หมายเหตุ: {slot.note}
-                    </p>
+                    {slot.note && (
+                        <p className="text-sm font-medium text-neutral-500">
+                            หมายเหตุ: {slot.note}
+                        </p>
+                    )}
                 </div>
             )}
         </div>
