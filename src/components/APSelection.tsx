@@ -26,6 +26,11 @@ export default function APSelection(): JSX.Element {
 
     return (
         <div className="w-full rounded-xl shadow-md bg-white px-6 py-4 space-y-2">
+            {selectedAP.length === 0 && (
+                <div className="py-2 text-error-300">
+                    อย่าลืมเลือกฝ่ายที่ต้องการแจ้ง AP นะ!
+                </div>
+            )}
             {Object.keys(departments).map((department) => (
                 <div key={department} className="py-2">
                     <p className="font-medium text-neutral-500">{department}</p>
