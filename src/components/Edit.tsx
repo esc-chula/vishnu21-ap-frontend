@@ -122,48 +122,60 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
                 <div className="flex flex-col space-y-6 items-center">
                     <div className="flex items-center space-x-4">
                         <div
+                            onClick={() => setOffset((prev) => prev + 10)}
+                            className="text-2xl text-secondary-600 rounded-full shadow-md p-3 bg-white"
+                        >
+                            <FiPlus />
+                        </div>
+                        <div
                             onClick={() => setOffset((prev) => prev + 1)}
-                            onPointerDown={() => {
-                                const timeout = setTimeout(() => {
-                                    const interval = setInterval(() => {
-                                        setOffset((prev) => prev + 1);
-                                    }, 100);
-                                    document.addEventListener(
-                                        'pointerup',
-                                        () => clearInterval(interval),
-                                        { once: true }
-                                    );
-                                }, 300);
-                                document.addEventListener(
-                                    'pointerup',
-                                    () => clearTimeout(timeout),
-                                    { once: true }
-                                );
-                            }}
+                            // onPointerDown={() => {
+                            //     const timeout = setTimeout(() => {
+                            //         const interval = setInterval(() => {
+                            //             setOffset((prev) => prev + 1);
+                            //         }, 100);
+                            //         document.addEventListener(
+                            //             'pointerup',
+                            //             () => clearInterval(interval),
+                            //             { once: true }
+                            //         );
+                            //     }, 300);
+                            //     document.addEventListener(
+                            //         'pointerup',
+                            //         () => clearTimeout(timeout),
+                            //         { once: true }
+                            //     );
+                            // }}
                             className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiPlus />
                         </div>
                         <div
                             onClick={() => setOffset((prev) => prev - 1)}
-                            onPointerDown={() => {
-                                const timeout = setTimeout(() => {
-                                    const interval = setInterval(() => {
-                                        setOffset((prev) => prev - 1);
-                                    }, 100);
-                                    document.addEventListener(
-                                        'pointerup',
-                                        () => clearInterval(interval),
-                                        { once: true }
-                                    );
-                                }, 300);
-                                document.addEventListener(
-                                    'pointerup',
-                                    () => clearTimeout(timeout),
-                                    { once: true }
-                                );
-                            }}
+                            // onPointerDown={() => {
+                            //     const timeout = setTimeout(() => {
+                            //         const interval = setInterval(() => {
+                            //             setOffset((prev) => prev - 1);
+                            //         }, 100);
+                            //         document.addEventListener(
+                            //             'pointerup',
+                            //             () => clearInterval(interval),
+                            //             { once: true }
+                            //         );
+                            //     }, 300);
+                            //     document.addEventListener(
+                            //         'pointerup',
+                            //         () => clearTimeout(timeout),
+                            //         { once: true }
+                            //     );
+                            // }}
                             className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
+                        >
+                            <FiMinus />
+                        </div>
+                        <div
+                            onClick={() => setOffset((prev) => prev - 10)}
+                            className="text-2xl text-secondary-600 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiMinus />
                         </div>
