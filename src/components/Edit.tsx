@@ -123,7 +123,7 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
                     <div className="flex items-center space-x-4">
                         <div
                             onClick={() => setOffset((prev) => prev + 10)}
-                            className="text-2xl text-secondary-600 rounded-full shadow-md p-3 bg-white"
+                            className="text-xs text-secondary-600 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiPlus />
                         </div>
@@ -146,7 +146,7 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
                             //         { once: true }
                             //     );
                             // }}
-                            className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
+                            className="text-xs text-neutral-400 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiPlus />
                         </div>
@@ -169,13 +169,13 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
                             //         { once: true }
                             //     );
                             // }}
-                            className="text-2xl text-neutral-400 rounded-full shadow-md p-3 bg-white"
+                            className="text-xs text-neutral-400 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiMinus />
                         </div>
                         <div
                             onClick={() => setOffset((prev) => prev - 10)}
-                            className="text-2xl text-secondary-600 rounded-full shadow-md p-3 bg-white"
+                            className="text-xs text-secondary-600 rounded-full shadow-md p-3 bg-white"
                         >
                             <FiMinus />
                         </div>
