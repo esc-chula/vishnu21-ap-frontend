@@ -31,6 +31,7 @@ const Slot: React.FC<SlotProps> = ({
     const currentTime = moment();
     const startTime = moment(moment(slot.start).format('HH:mm:ss'), 'HH:mm:ss');
     const endTime = moment(moment(slot.end).format('HH:mm:ss'), 'HH:mm:ss');
+    if (endTime.isBefore(startTime)) endTime.add(1, 'day');
     const isBetween = currentTime.isBetween(startTime, endTime);
     const isSameAsStart =
         currentTime.format('HH:mm') === startTime.format('HH:mm');
