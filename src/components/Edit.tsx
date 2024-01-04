@@ -120,7 +120,7 @@ const Edit: React.FC<EditProps> = ({ slot: inputSlot, onFinished, user }) => {
                     )}
                 </div>
                 <div className="flex flex-col space-y-6 items-center">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2">
                         <div
                             onClick={() => setOffset((prev) => prev + 10)}
                             className="text-xs text-secondary-600 rounded-full shadow-md p-3 bg-white"

@@ -26,6 +26,34 @@ export default function APSelection(): JSX.Element {
 
     return (
         <div className="w-full rounded-xl shadow-md bg-white px-6 py-4 space-y-2">
+            <div className="py-2 flex  justify-evenly">
+                <button
+                    onClick={() => {
+                        setSelectedAP(
+                            Object.keys(departments)
+                                .map(
+                                    (department) =>
+                                        departments[
+                                            department as keyof typeof departments
+                                        ]
+                                )
+                                .flat()
+                                .map((ap) => ap.shortName)
+                        );
+                    }}
+                    className="bg-primary-500 rounded-2xl px-6 py-2 text-white font-medium"
+                >
+                    เลือกทุกฝ่าย
+                </button>
+                <button
+                    onClick={() => {
+                        setSelectedAP([]);
+                    }}
+                    className="border-primary-500 border-2 rounded-2xl px-6 py-2 text-primary-500 font-medium"
+                >
+                    ไม่เลือกทุกฝ่าย
+                </button>
+            </div>
             {selectedAP.length === 0 && (
                 <div className="py-2 text-error-300">
                     อย่าลืมเลือกฝ่ายที่ต้องการแจ้ง AP นะ!
