@@ -24,7 +24,8 @@ const Slot: React.FC<SlotProps> = ({
     const start = moment(slot.start).format('HH:mm');
     const end = moment(slot.end).format('HH:mm');
 
-    const contactRegex = /(.+?) \((\d{3}-\d{3}-\d{4})\)/;
+    const contactRegex =
+        /(.+?) \((\d{10}|\d{3}-\d{7}|\d{6}-\d{4}|\d{3}-\d{3}-\d{4})\)/;
 
     const contactMatches = slot.contact.match(contactRegex);
 
