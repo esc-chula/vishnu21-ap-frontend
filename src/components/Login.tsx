@@ -2,6 +2,9 @@ import LG23APBotImage from '@/public/lg23-ap-bot.jpg';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
+import { FcGoogle } from 'react-icons/fc';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { CiLogout } from 'react-icons/ci';
 
 export default function Login({
     loginHandler,
@@ -13,6 +16,8 @@ export default function Login({
     const isStudentIdValid = /^6[4|5|6]3\d{5}21$/.test(studentId);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const session = useSession();
 
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6 bg-white">
@@ -26,6 +31,11 @@ export default function Login({
                 <p className="text-sm text-neutral-500">
                     กรอกรหัสนิสิตเพื่อยืนยันตัวหน่อย
                 </p>
+                {session && (
+                    <p className="text-sm text-neutral-500">
+                        {session.status} {session.data?.user?.email}
+                    </p>
+                )}
             </div>
             <input
                 type="text"
@@ -34,6 +44,24 @@ export default function Login({
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
             />
+            <button
+                onClick={() => {
+                    signIn('google', {
+                        callbackUrl: '/slots',
+                    });
+                }}
+                className={`bg-primary-800 text-white rounded-lg p-4 text-lg shadow-md duration-300 opacity-100 pointer-events-auto`}
+            >
+                <FcGoogle />
+            </button>
+            <button
+                onClick={() => {
+                    signOut();
+                }}
+                className={`bg-error-800 text-white rounded-lg p-4 text-lg shadow-md duration-300 opacity-100 pointer-events-auto`}
+            >
+                <CiLogout />
+            </button>
             <button
                 onClick={() => {
                     if (isLoading) return;

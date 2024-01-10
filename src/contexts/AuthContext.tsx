@@ -5,6 +5,7 @@ import Login from '@/components/Login';
 import { IUser } from '@/interfaces/user';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLiff } from './LiffContext';
+import { useSession } from 'next-auth/react';
 
 interface AuthContextProps {
     user: IUser | null;
@@ -24,6 +25,7 @@ export default function AuthProvider({
     children: React.ReactNode;
 }) {
     const liff = useLiff();
+    const session = useSession();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [user, setUser] = useState<IUser | null>(null);
     const config = {
@@ -94,7 +96,12 @@ export default function AuthProvider({
 
     useEffect(() => {
         fetchUser();
-    }, []);
+        if (session && session.data?.user?.email) {
+            console.log(session.data?.user?.email);
+
+            loginHandler(session.data?.user?.email);
+        }
+    }, [session]);
 
     if (isLoading) {
         return <Loading />;
