@@ -10,7 +10,7 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
 
 export const metadata = {
     title: 'เลขาฝ่ายแผน',
-    description: 'ลานเกียร์ต้องรอด',
+    description: 'มิวเซียมต้องไม่ +120',
 };
 
 export default function RootLayout({

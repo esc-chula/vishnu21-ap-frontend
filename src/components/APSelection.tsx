@@ -1,12 +1,10 @@
 import { useAuth } from '@/contexts/AuthContext';
-import { larngearCampDepartment } from '@/interfaces/orgChart';
+import { departments } from '@/interfaces/orgChart';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FiCheckSquare, FiSquare } from 'react-icons/fi';
 
 export default function APSelection(): JSX.Element {
-    const departments = larngearCampDepartment;
-
     const { user, fetchUser } = useAuth();
 
     const selectedData = user?.selectedDepartments ?? [];

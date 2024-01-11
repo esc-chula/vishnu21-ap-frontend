@@ -1,4 +1,4 @@
-export const vishnuDepartment = {
+const vishnuDepartment = {
     ดำเนินการ: [
         {
             name: 'ฝ่ายประสาน',
@@ -68,7 +68,7 @@ export const vishnuDepartment = {
     ],
 };
 
-export const larngearCampDepartment = {
+const larngearCampDepartment = {
     ฝ่ายหลัก: [
         {
             name: 'ฝ่ายประสาน',
@@ -126,3 +126,58 @@ export const larngearCampDepartment = {
         },
     ],
 };
+
+const intaniaMuseumDepartment = {
+    ทุกฝ่าย: [
+        {
+            name: 'ฝ่ายกิจกรรม',
+            shortName: 'ACTY',
+        },
+        {
+            name: 'ฝ่ายตกแต่งสถานที่',
+            shortName: 'ART',
+        },
+        {
+            name: 'ฝ่าย HALL',
+            shortName: 'HALL',
+        },
+        {
+            name: 'ฝ่าย Museum',
+            shortName: 'MUSEUM',
+        },
+        {
+            name: 'ฝ่าย PR',
+            shortName: 'PR',
+        },
+        {
+            name: 'ฝ่าย Twilight',
+            shortName: 'TWILIGHT',
+        },
+        {
+            name: 'ฝ่ายทะเบียน',
+            shortName: 'REG',
+        },
+        {
+            name: 'ฝ่ายแผน',
+            shortName: 'PLAN',
+        },
+        {
+            name: 'ฝ่ายพยาบาล',
+            shortName: 'MEDIC',
+        },
+        {
+            name: 'ฝ่ายพัสดุ',
+            shortName: 'SUPPLY',
+        },
+        {
+            name: 'ฝ่ายสถานที่',
+            shortName: 'PLACE',
+        },
+        {
+            name: 'ฝ่ายสวัสดิการ',
+            shortName: 'WELFARE',
+        },
+    ],
+};
+
+export const departments = intaniaMuseumDepartment;
