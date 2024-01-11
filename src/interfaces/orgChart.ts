@@ -128,7 +128,7 @@ const larngearCampDepartment = {
 };
 
 const intaniaMuseumDepartment = {
-    ทุกฝ่าย: [
+    'รายชื่อฝ่ายต่าง ๆ': [
         {
             name: 'ฝ่ายกิจกรรม',
             shortName: 'ACTY',
