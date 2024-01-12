@@ -14,6 +14,8 @@ export default function Login({
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const [showWarning, setShowWarning] = useState<boolean>(false);
+
     return (
         <div className="flex flex-col items-center justify-center h-screen w-full text-center space-y-8 pb-6 bg-white">
             <div className="relative h-28 rounded-full bg-white overflow-hidden border-8 border-white shadow-lg aspect-square">
@@ -26,6 +28,11 @@ export default function Login({
                 <p className="text-sm text-neutral-500">
                     กรอกรหัสนิสิตเพื่อยืนยันตัวหน่อย
                 </p>
+                {showWarning && (
+                    <p className="text-sm text-error-500">
+                        ต้องเข้ากลุ่มสตาฟ Museum ก่อนนะงับ
+                    </p>
+                )}
             </div>
             <input
                 type="text"
@@ -39,6 +46,7 @@ export default function Login({
                     if (isLoading) return;
                     loginHandler(studentId);
                     setIsLoading(true);
+                    setShowWarning(true);
                 }}
                 className={`bg-neutral-800 text-white rounded-lg p-4 text-lg shadow-md duration-300 ${
                     isStudentIdValid
