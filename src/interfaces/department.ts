@@ -27,20 +27,7 @@ type LarngearCampDepartment =
     | 'PR'
     | 'SPONSOR'
     | 'FINANCE'
-    | 'MC';
+    | 'MC'
+    | 'IT';
 
-type IntaniaMuseumDepartment =
-    | 'ACTY'
-    | 'ART'
-    | 'HALL'
-    | 'MUSEUM'
-    | 'PR'
-    | 'TWILIGHT'
-    | 'REG'
-    | 'PLAN'
-    | 'MEDIC'
-    | 'SUPPLY'
-    | 'PLACE'
-    | 'WELFARE';
-
-export type TDepartment = IntaniaMuseumDepartment;
+export type TDepartment = LarngearCampDepartment;

@@ -10,7 +10,7 @@ export default function Login({
 }): JSX.Element {
     const [studentId, setStudentId] = useState<string>('');
 
-    const isStudentIdValid = /^6[3|4|5]3\d{5}21$/.test(studentId);
+    const isStudentIdValid = /^6[5|6|7]3\d{5}21$/.test(studentId);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -23,14 +23,14 @@ export default function Login({
             </div>
             <div className="space-y-1">
                 <h1 className="font-bold text-3xl text-neutral-800">
-                    ใครหน่ะ?!
+                    ใครน่ะ?!
                 </h1>
                 <p className="text-sm text-neutral-500">
                     กรอกรหัสนิสิตเพื่อยืนยันตัวหน่อย
                 </p>
                 {showWarning && (
                     <p className="text-sm text-error-500">
-                        ต้องเข้ากลุ่มสตาฟ Museum ก่อนนะงับ
+                        ต้องเป็นเด็กข้างไข่ JomnoiZ ก่อนนะงับ
                     </p>
                 )}
             </div>
